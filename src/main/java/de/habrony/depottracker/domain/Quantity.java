@@ -9,7 +9,7 @@ public record Quantity(BigDecimal value) {
             throw new IllegalArgumentException("Quantity value must not be null");
         }
         if (value.signum() <= 0) {
-            throw new IllegalArgumentException("Quantity value must be positive");
+            throw new IllegalArgumentException("Quantity value must be positive: " + value);
         }
     }
 }
