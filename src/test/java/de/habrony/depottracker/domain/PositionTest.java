@@ -39,7 +39,7 @@ public class PositionTest {
     }
 
     @Test
-    void sellReducesQuantity() {
+    void sellAfterBuyReducesQuantity() {
         Position position = new Position(SAP, List.of(buy("10"), sell("4")));
         assertEquals(new BigDecimal("6"), position.quantity());
     }
