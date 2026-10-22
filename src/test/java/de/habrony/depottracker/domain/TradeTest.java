@@ -12,7 +12,7 @@ public class TradeTest {
 
     private static final Symbol SYMBOL = new Symbol("SAP");
     private static final Quantity QUANTITY = new Quantity(new BigDecimal("10"));
-    private static final Price  PRICE = new Price(new BigDecimal("150.00"));
+    private static final Price PRICE = new Price(new BigDecimal("150.00"));
     private static final LocalDate DATE = LocalDate.of(2026, 10, 21);
 
     @Test
@@ -71,8 +71,8 @@ public class TradeTest {
         assertThrows(IllegalArgumentException.class, () -> new Trade(
                 SYMBOL,
                 TradeType.BUY,
-                new Quantity(new BigDecimal("10")),
-                new Price(new BigDecimal("150.00")),
+                QUANTITY,
+                PRICE,
                 null));
     }
 }
