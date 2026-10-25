@@ -45,7 +45,7 @@ Requires Java 25 and Maven.
 ## Roadmap
 
 - [x] Domain model with tests
-- [ ] Portfolio across multiple symbols
+- [x] Portfolio across multiple symbols
 - [ ] Ports and use cases
 - [ ] Spring Boot + PostgreSQL adapters
 - [ ] REST API
