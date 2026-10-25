@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PositionTest {
 
@@ -42,5 +43,23 @@ public class PositionTest {
     void sellAfterBuyReducesQuantity() {
         Position position = new Position(SAP, List.of(buy("10"), sell("4")));
         assertEquals(new BigDecimal("6"), position.quantity());
+    }
+
+    @Test
+    void rejectsSellingMoreThanHeld() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new Position(SAP, List.of(buy("10"), sell("11"))));
+    }
+
+    @Test
+    void allowSellingEverything() {
+        Position position = new Position(SAP, List.of(buy("10"), sell("10")));
+        assertEquals(BigDecimal.ZERO, position.quantity());
+    }
+
+    @Test
+    void rejectsSellBeforeBuy() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new Position(SAP, List.of(sell("5"), buy("10"))));
     }
 }
