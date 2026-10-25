@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class PositionTest {
 
     private static final Symbol SAP = new Symbol("SAP");
+    private static final Symbol AAPL = new Symbol("AAPL");
 
     private static Trade buy(String quantity, String price) {
         return new Trade(SAP, TradeType.BUY,
@@ -118,5 +119,30 @@ class PositionTest {
                 buy("1", "10"),
                 buy("2", "20")));
         assertEquals(new BigDecimal("16.6667"), position.averagePrice());
+    }
+
+    // --- validation ---
+
+    @Test
+    void rejectsNullSymbol() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new Position(null, List.of()));
+    }
+
+    @Test
+    void rejectsNullTrades() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new Position(SAP, null));
+    }
+
+    @Test
+    void rejectsTradeWithDifferentSymbol() {
+        Trade appleTrade = new Trade(AAPL, TradeType.BUY,
+                new Quantity(new BigDecimal("5")),
+                new Price(new BigDecimal("2000")),
+                LocalDate.of(2026, 10, 22));
+
+        assertThrows(IllegalArgumentException.class,
+                () -> new Position(SAP, List.of(buy("10"), appleTrade)));
     }
 }
